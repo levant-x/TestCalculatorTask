@@ -1,0 +1,6 @@
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\bin\Debug\CalculatorAPI.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\bin\Debug\CalculatorAPI.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\obj\Debug\CalculatorAPI.csprojAssemblyReference.cache
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\obj\Debug\CalculatorAPI.csproj.CoreCompileInputs.cache
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\obj\Debug\CalculatorAPI.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\obj\Debug\CalculatorAPI.pdb

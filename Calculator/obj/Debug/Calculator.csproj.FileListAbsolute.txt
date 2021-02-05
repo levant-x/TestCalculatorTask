@@ -1,0 +1,9 @@
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\bin\Debug\Calculator.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\bin\Debug\Calculator.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\obj\Debug\Calculator.csprojAssemblyReference.cache
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\obj\Debug\Calculator.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\obj\Debug\Calculator.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\bin\Debug\CalculatorAPI.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\bin\Debug\CalculatorAPI.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\Calculator\obj\Debug\Calculator.csproj.CopyComplete
