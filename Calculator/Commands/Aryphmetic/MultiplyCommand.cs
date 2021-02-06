@@ -2,13 +2,12 @@
 
 namespace Calculator.Commands.Aryphmetic
 {
-    public class MultiplyCommand : ICommand
+    public class MultiplyCommand : BaseCommand
     {
-        public int Operands => throw new System.NotImplementedException();
+        public MultiplyCommand()
+            : base(2, 2) { }
 
-        public int Priority { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-        public double Exec(double left, double right)
+        protected override double Calc(double left, double right)
         {
             return left * right;
         }

@@ -2,18 +2,12 @@
 
 namespace Calculator.Commands.Aryphmetic
 {
-    public class SumCommand : ICommand
+    public class SumCommand : BaseCommand
     {
-        public int Operands { get; }
-        public int Priority { get; set; }
-
         public SumCommand()
-        {
-            Operands = 2;
-            Priority = 1;
-        }
+            : base(2, 1) { }
 
-        public double Exec(double left, double right)
+        protected override double Calc(double left, double right)
         {
             return left + right;
         }

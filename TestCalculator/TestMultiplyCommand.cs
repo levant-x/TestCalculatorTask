@@ -32,7 +32,7 @@ namespace TestCalculator
         {
             ICommand sumCommand = new SumCommand();
 
-            bool result = sumCommand.Priority > sumCommand.Priority;
+            bool result = multiplyCommand.Priority > sumCommand.Priority;
 
             Assert.True(result);
         }

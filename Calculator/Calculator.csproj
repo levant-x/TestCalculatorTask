@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="DynamicNumber.cs" />
     <Compile Include="Commands\Aryphmetic\MultiplyCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
