@@ -5,22 +5,26 @@ namespace Calculator
 {
     public class MathExpression : IMathExpression
     {
-        private IExpressionBuilder mathExpressionBuilder;
+        ICollection<IExpressionElement> elements;
+        private IExpressionBuilder expressionBuilder;
 
-        public MathExpression(IExpressionBuilder mathExpressionBuilder)
+        public MathExpression(IExpressionBuilder expressionBuilder)
         {
-            this.mathExpressionBuilder = mathExpressionBuilder;
+            this.expressionBuilder = expressionBuilder;
+            elements = new List<IExpressionElement>();
         }
 
 
         public bool Append(char symbol)
         {
-            throw new System.NotImplementedException();
+            var result = expressionBuilder.TryAppendElement(
+                elements, symbol);
+            return result;
         }
 
         public ICollection<IExpressionElement> GetCollection()
         {
-            throw new System.NotImplementedException();
+            return elements;
         }
     }
 }

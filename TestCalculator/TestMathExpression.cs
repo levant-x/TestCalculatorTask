@@ -12,22 +12,18 @@ namespace TestCalculator
     public class TestMathExpression
     {
         [Fact]
-        public void Append_2Plus3_ReturnsNumSumNum()
+        public void Append_2Plus3_ReturnsTrue3Times()
         {
-            var mathExpressionBuilder = new Mock<IExpressionBuilder>();
-            IMathExpression mathExpression = new MathExpression(mathExpressionBuilder.Object);
+            var expressionBuilder = new Mock<IExpressionBuilder>();            
+            IMathExpression mathExpression = new MathExpression(expressionBuilder.Object);
+            var collection = new List<IExpressionElement>();
             var expressionString = "2+3";
 
             foreach (var symbol in expressionString)
                 mathExpression.Append(symbol);
-            IEnumerable<IExpressionElement> result = mathExpression.GetCollection();
 
-            Assert.Collection(result, new Action<IExpressionElement>[]
-            {
-                elem => It.IsAny<IDynamicNumber>(),
-                elem => It.IsAny<ICommand>(),
-                elem => It.IsAny<IDynamicNumber>()
-            });
+            expressionBuilder.Verify(m => m.TryAppendElement(It.IsAny<ICollection<IExpressionElement>>(),
+                It.IsAny<char>()), Times.Exactly(3));
         }
     }
 }

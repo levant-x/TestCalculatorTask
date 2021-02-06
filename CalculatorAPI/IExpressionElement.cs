@@ -1,6 +1,6 @@
 ﻿namespace CalculatorAPI
 {
-    public interface IExpressionElement
+    public interface IExpressionElement 
     {
     }
 }
