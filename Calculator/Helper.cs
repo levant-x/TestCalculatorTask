@@ -27,6 +27,7 @@ namespace Calculator
             _symbol_elementType_map = new Dictionary<char, Type>()
             {
                 { '+', typeof(SumCommand) },
+                { '*', typeof(MultiplyCommand) },
                 { numberKey, typeof(DynamicNumber) }
             };
         }
