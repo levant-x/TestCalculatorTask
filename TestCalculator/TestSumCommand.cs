@@ -20,7 +20,7 @@ namespace TestCalculator
 
 
         [Fact]
-        public void Sum_ExecWith2and3_Returns5()
+        public void Exec_Input2and3_Returns5()
         {
             double sum = sumCommand.Exec(2, 3);
 
@@ -29,7 +29,7 @@ namespace TestCalculator
 
 
         [Fact]
-        public void Sum_Operands_Returns2()
+        public void Operands_Returns2()
         {
             int operands = sumCommand.Operands;
 
@@ -37,7 +37,7 @@ namespace TestCalculator
         }
 
         [Fact]
-        public void Sum_Priority_Returns1()
+        public void Priority_Returns1()
         {
             int priority = sumCommand.Priority;
 
