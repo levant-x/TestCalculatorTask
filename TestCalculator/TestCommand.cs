@@ -11,16 +11,29 @@ namespace TestCalculator
 {
     public class TestCommand
     {
+        ICommand sumCommand;
+
+        public TestCommand()
+        {
+            sumCommand = new SumCommand();
+        }
+
+
         [Fact]
         public void Add_ExecWith2and3_Returns5()
         {
-            ICommand sumCommand = new SumCommand();
-
             double sum = sumCommand.Exec(2, 3);
 
             Assert.Equal(5, sum);
         }
 
 
+        [Fact]
+        public void Add_Operands_Returns2()
+        {
+            int operands = sumCommand.Operands;
+
+            Assert.Equal(2, operands);
+        }
     }
 }
