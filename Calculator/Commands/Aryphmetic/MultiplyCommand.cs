@@ -10,7 +10,7 @@ namespace Calculator.Commands.Aryphmetic
 
         public double Exec(double left, double right)
         {
-            throw new System.NotImplementedException();
+            return left * right;
         }
     }
 }
