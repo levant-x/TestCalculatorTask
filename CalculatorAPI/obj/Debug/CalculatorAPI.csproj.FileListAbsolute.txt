@@ -3,3 +3,4 @@ D:\Документы\Служебные документы\РБИУ\Работ�
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\obj\Debug\CalculatorAPI.csproj.CoreCompileInputs.cache
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\obj\Debug\CalculatorAPI.dll
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\obj\Debug\CalculatorAPI.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\CalculatorAPI\obj\Debug\CalculatorAPI.csprojAssemblyReference.cache

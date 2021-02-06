@@ -1,6 +1,6 @@
 ﻿namespace CalculatorAPI
 {
-    public interface ICommand
+    public interface ICommand : IExpressionElement
     {
         int Operands { get; }
 

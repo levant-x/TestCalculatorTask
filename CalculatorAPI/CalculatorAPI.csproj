@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="ICommand.cs" />
     <Compile Include="IDynamicNumber.cs" />
+    <Compile Include="IExpressionBuilder.cs" />
+    <Compile Include="IExpressionElement.cs" />
+    <Compile Include="IMathExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
