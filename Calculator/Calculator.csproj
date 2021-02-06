@@ -45,6 +45,7 @@
     <Compile Include="DynamicNumber.cs" />
     <Compile Include="Commands\Aryphmetic\MultiplyCommand.cs" />
     <Compile Include="ExpressionBuilder.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="MathExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands\Aryphmetic\SumCommand.cs" />

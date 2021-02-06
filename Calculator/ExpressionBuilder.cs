@@ -10,35 +10,24 @@ namespace Calculator
 {
     public class ExpressionBuilder : IExpressionBuilder
     {
-        private static Dictionary<char, Type> _symbol_elementType_map;
+        // сопоставляет, элемент каких типов можно добавить в выражение следующим
         private static Dictionary<Type, Type[]> _lastElement_possibleTypesOfNext_map;
-        static readonly char numberKey;
+        static readonly Type typeToStartExpressionWith = typeof(char);
 
 
         static ExpressionBuilder()
         {
-            numberKey = 'd';
-
-            _symbol_elementType_map = new Dictionary<char, Type>()
-            {
-                { '+', typeof(SumCommand) },
-                { numberKey, typeof(DynamicNumber) }
-            };
-
             _lastElement_possibleTypesOfNext_map = new Dictionary<Type, Type[]>()
             {
-                { null, new Type[] { typeof(IDynamicNumber) } },
-
-                { typeof(IDynamicNumber), new Type[]
-                { typeof(IDynamicNumber), typeof(ICommand) } },
-
-                { typeof(ICommand), new Type[] { typeof(IDynamicNumber) } }
+                { typeToStartExpressionWith, new Type[] { typeof(IDynamicNumber) } },
+                { typeof(ICommand), new Type[] { typeof(IDynamicNumber) } },
+                { typeof(IDynamicNumber), new Type[] { typeof(ICommand) } }
             };
         }
 
         public bool TryAppendElement(ICollection<IExpressionElement> expression, char elemKey)
         {
-            var lastElem = expression.Last();
+            var lastElem = expression.Count == 0 ? null : expression.Last();
             var elemToAdd = CreateNewElement(elemKey);
             var result = false;
 
@@ -49,6 +38,7 @@ namespace Calculator
                     result = TryAppendNumber((IDynamicNumber)elemToAdd, elemKey);
                     if (!result) return false;
                 }
+                result = true;
                 expression.Add(elemToAdd);
             }
             else if (lastElem is IDynamicNumber)
@@ -58,21 +48,8 @@ namespace Calculator
 
         IExpressionElement CreateNewElement(char symbol)
         {
-            if (_symbol_elementType_map.ContainsKey(symbol))
-            {
-                var commandType = _symbol_elementType_map[symbol];
-                return CreateElement(commandType);
-            }
-            else
-            {
-                var numberType = _symbol_elementType_map[numberKey];
-                return CreateElement(numberType);
-            }
-        }
-
-        IExpressionElement CreateElement<T>(T type) 
-        {
-            return (IExpressionElement)Activator.CreateInstance(typeof(T));
+            var elementType = Helper.GetElementTypeByChar(symbol);
+            return (IExpressionElement)Activator.CreateInstance(elementType);
         }
 
         bool TryAppendNumber(IDynamicNumber number, char symbol)
@@ -80,10 +57,23 @@ namespace Calculator
             return number.Append(symbol);
         }
 
-        bool CanInsertElementOfType<T>(IExpressionElement lastElem, T elemToAdd)
+        bool CanInsertElementOfType(IExpressionElement lastElem, IExpressionElement elemToAdd)
         {
-            var possibleTypes = _lastElement_possibleTypesOfNext_map[typeof(T)];
-            return possibleTypes.Contains(typeof(T));
+            var map = _lastElement_possibleTypesOfNext_map;
+
+            // интерфейс, реализуемый элементом и имеющийся в настройках
+            var keyType = lastElem == null ? typeToStartExpressionWith :
+                lastElem.GetType()
+                .GetInterfaces()
+                .First(i => map.ContainsKey(i)); 
+            var possibleTypes = map[keyType];
+
+            // имеется ли в настройках интерфейс, реализуемый элементом
+            var result = possibleTypes
+                .Any(t => elemToAdd.GetType()
+                .GetInterfaces()
+                .Contains(t)); 
+            return result;
         }
     }
 }

@@ -4,8 +4,7 @@ namespace Calculator
 {
     public class DynamicNumber : IDynamicNumber
     {
-        readonly char dotSymbolExpected = '.';
-        readonly char dotSymbolUsed = ',';
+        readonly char decSeparatorToParse = ',';
 
         string _valueString = "";
         private double _value;
@@ -25,11 +24,12 @@ namespace Calculator
         {
             var result = false;
 
-            if (symbol == dotSymbolExpected) symbol = dotSymbolUsed;
+            if (symbol == Helper.DecimalSeparator)
+                symbol = decSeparatorToParse;
             else if (!IsPossibleNumeric(symbol)) return result;
 
-            var tryingToAddMoreThan1dot = symbol == dotSymbolUsed &&
-                _valueString.Contains(dotSymbolUsed.ToString());
+            var tryingToAddMoreThan1dot = symbol == decSeparatorToParse &&
+                _valueString.Contains(decSeparatorToParse.ToString());
 
             if (tryingToAddMoreThan1dot) return result;            
             else

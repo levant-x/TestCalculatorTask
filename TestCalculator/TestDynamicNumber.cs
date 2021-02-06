@@ -29,7 +29,7 @@ namespace TestCalculator
         [Fact]
         public void Append_Input2dot7dot1_Returns2dot71()
         {
-            var inputString = "2.7.1";
+            var inputString = "2,7,1";
 
             AppendCharsToDynamicNumber(inputString);
 
@@ -39,7 +39,7 @@ namespace TestCalculator
         [Fact]
         public void Append_Input003dot14_Returns3dot14()
         {
-            var inputString = "3.14";
+            var inputString = "3,14";
 
             AppendCharsToDynamicNumber(inputString);
 
