@@ -9,18 +9,18 @@ using Calculator.Commands.Aryphmetic;
 
 namespace TestCalculator
 {
-    public class TestCommand
+    public class TestSumCommand
     {
         ICommand sumCommand;
 
-        public TestCommand()
+        public TestSumCommand()
         {
             sumCommand = new SumCommand();
         }
 
 
         [Fact]
-        public void Add_ExecWith2and3_Returns5()
+        public void Sum_ExecWith2and3_Returns5()
         {
             double sum = sumCommand.Exec(2, 3);
 
@@ -29,11 +29,19 @@ namespace TestCalculator
 
 
         [Fact]
-        public void Add_Operands_Returns2()
+        public void Sum_Operands_Returns2()
         {
             int operands = sumCommand.Operands;
 
             Assert.Equal(2, operands);
+        }
+
+        [Fact]
+        public void Sum_Priority_Returns1()
+        {
+            int priority = sumCommand.Priority;
+
+            Assert.Equal(1, priority);
         }
     }
 }
