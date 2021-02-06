@@ -39,7 +39,7 @@ namespace TestCalculator
         [Fact]
         public void Append_Input003dot14_Returns3dot14()
         {
-            var inputString = "003.14";
+            var inputString = "3.14";
 
             AppendCharsToDynamicNumber(inputString);
 
