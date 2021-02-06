@@ -38,5 +38,11 @@ namespace Calculator
         {
             return char.IsDigit(symbol) || symbol == '.';
         }
+
+
+        public override string ToString()
+        {
+            return _valueString;
+        }
     }
 }
