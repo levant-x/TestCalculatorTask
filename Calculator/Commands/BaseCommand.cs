@@ -13,6 +13,7 @@ namespace Calculator.Commands
 
         public int Priority { get; set; }
 
+
         public BaseCommand(int operands, int priority)
         {
             Operands = operands;

@@ -48,7 +48,7 @@ namespace Calculator
 
         IExpressionElement CreateNewElement(char symbol)
         {
-            var elementType = Helper.GetElementTypeByChar(symbol);
+            var elementType = Helper.ResolveElement(symbol);
             return (IExpressionElement)Activator.CreateInstance(elementType);
         }
 

@@ -32,14 +32,12 @@ namespace Calculator
             };
         }
 
-        public static Type GetElementTypeByChar(char symbol)
+        public static Type ResolveElement(char symbol)
         {
             var map = _symbol_elementType_map;
 
             if (map.ContainsKey(symbol)) return map[symbol];            
             else return map[numberKey];            
         }
-
-
     }
 }
