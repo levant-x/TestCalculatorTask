@@ -9,20 +9,29 @@ namespace TestCalculator
 {
     public class TestSubtractCommand
     {
-        ICommand sumCommand;
+        ICommand subtCommand;
 
         public TestSubtractCommand()
         {
-            sumCommand = new SumCommand();
+            subtCommand = new SubtractCommand();
         }
 
 
         [Fact]
         public void Exec_Input10and2_Returns8()
         {
-            double result = sumCommand.Exec(10, 2);
+            double result = subtCommand.Exec(10, 2);
 
             Assert.Equal(8, result);
+        }
+
+
+        [Fact]
+        public void Priority_MulPriorityHighterThanSumPriority_True()
+        {
+            ICommand sumCommand = new SumCommand();
+                        
+            Assert.Equal(subtCommand.Priority, sumCommand.Priority);
         }
     }
 }
