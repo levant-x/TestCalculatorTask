@@ -8,16 +8,22 @@ namespace TestCalculator
 {
     public class TestDynamicNumber
     {
-        [Fact]
-        public void Append_Input002Dot71_Returns2Dot71()
+        readonly IDynamicNumber number;
+
+        public TestDynamicNumber()
         {
-            IDynamicNumber number = new DynamicNumber();
-            var inputString = "002.71";
-
-            foreach (var symbol in inputString)
-                number.Append(symbol);
-
-            Assert.Equal(2.71, number.Value);
+            number = new DynamicNumber();
         }
+
+
+        [Fact]
+        public void Append_Input123_Returns123()
+        {
+            var inputString = "123";
+
+            foreach (var symbol in inputString) number.Append(symbol);
+
+            Assert.Equal(123, number.Value);
+        }        
     }
 }
