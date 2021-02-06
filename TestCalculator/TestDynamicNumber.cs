@@ -36,6 +36,16 @@ namespace TestCalculator
             Assert.Equal(2.71, number.Value);
         }
 
+        [Fact]
+        public void Append_Input003dot14_Returns3dot14()
+        {
+            var inputString = "003.14";
+
+            AppendCharsToDynamicNumber(inputString);
+
+            Assert.Equal(3.14, number.Value);
+        }
+
 
         private void AppendCharsToDynamicNumber(string inputString)
         {
