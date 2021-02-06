@@ -4,6 +4,9 @@ namespace Calculator
 {
     public class DynamicNumber : IDynamicNumber
     {
+        readonly char dotSymbolExpected = '.';
+        readonly char dotSymbolUsed = ',';
+
         string _valueString = "";
         private double _value;
 
@@ -22,9 +25,13 @@ namespace Calculator
         {
             var result = false;
 
-            if (!IsPossibleNumeric(symbol)) return result;
-            else if (symbol == '.' && _valueString.Contains(".")) return result;
-            
+            if (symbol == dotSymbolExpected) symbol = dotSymbolUsed;
+            else if (!IsPossibleNumeric(symbol)) return result;
+
+            var tryingToAddMoreThan1dot = symbol == dotSymbolUsed &&
+                _valueString.Contains(dotSymbolUsed.ToString());
+
+            if (tryingToAddMoreThan1dot) return result;            
             else
             {
                 result = true;
@@ -36,7 +43,7 @@ namespace Calculator
 
         private bool IsPossibleNumeric(char symbol)
         {
-            return char.IsDigit(symbol) || symbol == '.';
+            return char.IsDigit(symbol);
         }
 
 
