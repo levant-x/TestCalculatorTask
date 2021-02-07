@@ -8,6 +8,6 @@ namespace CalculatorAPI
 
         bool Parse(string inputString);
 
-        double Calculate();
+        bool Calculate(out double result);
     }
 }

@@ -11,13 +11,13 @@ namespace Calculator
     public class ExpressionBuilder : IExpressionBuilder
     {
         // сопоставляет, элемент каких типов можно добавить в выражение следующим
-        private static Dictionary<Type, Type[]> _lastElement_possibleTypesOfNext_map;
+        private static Dictionary<Type, Type[]> lastElement_possibleTypesOfNext_map;
         static readonly Type typeToStartExpressionWith = typeof(char);
 
 
         static ExpressionBuilder()
         {
-            _lastElement_possibleTypesOfNext_map = new Dictionary<Type, Type[]>()
+            lastElement_possibleTypesOfNext_map = new Dictionary<Type, Type[]>()
             {
                 { typeToStartExpressionWith, new Type[] 
                 { typeof(IDynamicNumber), typeof(IOpeningBracket) } },
@@ -73,7 +73,7 @@ namespace Calculator
 
         bool CanInsertElementOfType(IExpressionElement lastElem, IExpressionElement elemToAdd)
         {
-            var map = _lastElement_possibleTypesOfNext_map;
+            var map = lastElement_possibleTypesOfNext_map;
 
             // интерфейс, реализуемый элементом и имеющийся в настройках
             var keyType = lastElem == null ? typeToStartExpressionWith :

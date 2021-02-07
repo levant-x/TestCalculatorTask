@@ -5,13 +5,16 @@ namespace Calculator
 {
     public class MathExpression : IMathExpression
     {
-        ICollection<IExpressionElement> elements;
+        Stack<IDynamicNumber> deferredNumbers;
+        Stack<ICommand> deferredCommands;
+
+        LinkedList<IExpressionElement> elements;
         private IExpressionBuilder expressionBuilder;
 
         public MathExpression(IExpressionBuilder expressionBuilder)
         {
             this.expressionBuilder = expressionBuilder;
-            elements = new List<IExpressionElement>();
+            elements = new LinkedList<IExpressionElement>();
         }
 
 
@@ -38,7 +41,7 @@ namespace Calculator
             return true;
         }
 
-        public double Calculate()
+        public bool Calculate(out double result)
         {
             throw new System.NotImplementedException();
         }

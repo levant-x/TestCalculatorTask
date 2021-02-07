@@ -14,7 +14,7 @@ namespace Calculator
     {
 
         // сопоставляет, элемент какого типа можно добавить по символу
-        private static Dictionary<char, Type> _symbol_elementType_map;
+        private static Dictionary<char, Type> symbol_elementType_map;
         static readonly char numberKey = 'd';
 
         public static char DecimalSeparator { get; set; }
@@ -25,7 +25,7 @@ namespace Calculator
             DecimalSeparator = CultureInfo.CurrentCulture.NumberFormat
                 .NumberDecimalSeparator[0];
 
-            _symbol_elementType_map = new Dictionary<char, Type>()
+            symbol_elementType_map = new Dictionary<char, Type>()
             {
                 { '+', typeof(SumCommand) },
                 { '-', typeof(SubtractCommand) },
@@ -39,7 +39,7 @@ namespace Calculator
 
         public static Type ResolveElement(char symbol)
         {
-            var map = _symbol_elementType_map;
+            var map = symbol_elementType_map;
 
             if (map.ContainsKey(symbol)) return map[symbol];            
             else return map[numberKey];            

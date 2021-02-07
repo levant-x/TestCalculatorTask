@@ -6,17 +6,17 @@ namespace Calculator
     {
         readonly char decSeparatorToParse = ',';
 
-        string _valueString = "";
-        private double _value;
+        string valueString = "";
+        private double value;
 
         public double Value
         {
             get
             {
-                double.TryParse(_valueString, out _value);
-                return _value;
+                double.TryParse(valueString, out value);
+                return value;
             }
-            set => _value = value;
+            set => this.value = value;
         }
 
 
@@ -29,13 +29,13 @@ namespace Calculator
             else if (!IsPossibleNumeric(symbol)) return result;
 
             var tryingToAddMoreThan1dot = symbol == decSeparatorToParse &&
-                _valueString.Contains(decSeparatorToParse.ToString());
+                valueString.Contains(decSeparatorToParse.ToString());
 
             if (tryingToAddMoreThan1dot) return result;            
             else
             {
                 result = true;
-                _valueString += symbol;
+                valueString += symbol;
             }
 
             return result;
@@ -49,7 +49,7 @@ namespace Calculator
 
         public override string ToString()
         {
-            return _valueString;
+            return valueString;
         }
     }
 }
