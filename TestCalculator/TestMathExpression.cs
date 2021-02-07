@@ -35,7 +35,7 @@ namespace TestCalculator
 
         [Fact]
         // Ob - opening bracket, Cb - closing bracket для экономии длины
-        public void Parse_ObOb2Plus3ClMul8CbDiv10_ReturnsTrue12Times()
+        public void Parse_ObOb2Plus3ClMul8CbDiv10_ReturnsTheSame()
         {
             mathExpression = new MathExpression(new ExpressionBuilder());
             inputString = "((2+3)*8)/10";
@@ -57,12 +57,6 @@ namespace TestCalculator
                 elem => It.IsAny<ICommand>(),
                 elem => It.IsAny<IDynamicNumber>(),
             });
-        }
-
-
-        public void Parse_7Mul4ObOb2Sub8CbMul3Cb_ReturnsTheSame()
-        {
-
         }
 
         void AppendElementsFromInputString()
