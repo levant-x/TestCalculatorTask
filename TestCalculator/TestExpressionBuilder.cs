@@ -1,4 +1,5 @@
 ﻿using Calculator;
+using Calculator.Commands.Aryphmetic;
 using CalculatorAPI;
 using Moq;
 using System;
@@ -42,7 +43,7 @@ namespace TestCalculator
         }
 
         [Fact]
-        public void TryAppendElement_Input2Plus3Mul7_FillsWithNumSumNumMulNum()
+        public void TryAppendElement_Input2Plus3Mul7_FillsWithNumComNumComNum()
         {
             IExpressionBuilder expressionBuilder = new ExpressionBuilder();
             var expressionBody = new List<IExpressionElement>();
@@ -59,6 +60,31 @@ namespace TestCalculator
                 elem => It.IsAny<ICommand>(),
                 elem => It.IsAny<IDynamicNumber>()
             });
+        }
+
+        [Fact]
+        public void TryAppendElement_Input25Plus3dot14Mul70_Returns25Plus3dot14Mul70()
+        {
+            IExpressionBuilder expressionBuilder = new ExpressionBuilder();
+            var expressionBody = new List<IExpressionElement>();
+            string inputString = "25+3,14*70";
+
+            foreach (var symbol in inputString)
+                expressionBuilder.TryAppendElement(expressionBody, symbol);
+
+            Assert.Collection(expressionBody, new Action<IExpressionElement>[]
+            {
+                elem => Equals(GetDynamicValue(elem), 25),
+                elem => It.IsAny<SumCommand>(),
+                elem => Equals(GetDynamicValue(elem), 3.14),
+                elem => It.IsAny<MultiplyCommand>(),
+                elem => Equals(GetDynamicValue(elem), 70)
+            });
+        }
+
+        double GetDynamicValue(IExpressionElement element)
+        {
+            return ((IDynamicNumber)element).Value;
         }
     }
 }

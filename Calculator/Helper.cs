@@ -29,6 +29,7 @@ namespace Calculator
                 { '+', typeof(SumCommand) },
                 { '-', typeof(SubtractCommand) },
                 { '*', typeof(MultiplyCommand) },
+                { '/', typeof(DivideCommand) },
                 { numberKey, typeof(DynamicNumber) }
             };
         }
