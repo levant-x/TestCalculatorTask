@@ -12,15 +12,22 @@ namespace TestCalculator
 {
     public class TestExpressionBuilder
     {
+        IExpressionBuilder expressionBuilder;
+        ICollection<IExpressionElement> expressionBody;
+        string inputString;
+
+        public TestExpressionBuilder()
+        {
+            expressionBuilder = new ExpressionBuilder();
+            expressionBody = new List<IExpressionElement>();
+        }
+
         [Fact]
         public void TryAppendElement_Input123_FillsWithNum()
         {
-            IExpressionBuilder expressionBuilder = new ExpressionBuilder();
-            var expressionBody = new List<IExpressionElement>();
-            string inputString = "123";
+            inputString = "123";
 
-            foreach (var symbol in inputString)
-                expressionBuilder.TryAppendElement(expressionBody, symbol);
+            AppendElementsFromInputString();
 
             Assert.Collection(expressionBody, new Action<IExpressionElement>[]
             {
@@ -31,12 +38,9 @@ namespace TestCalculator
         [Fact]
         public void TryAppendElement_Input123_FillsWith123()
         {
-            IExpressionBuilder expressionBuilder = new ExpressionBuilder();
-            var expressionBody = new List<IExpressionElement>();
-            string inputString = "123";
+            inputString = "123";
 
-            foreach (var symbol in inputString)
-                expressionBuilder.TryAppendElement(expressionBody, symbol);
+            AppendElementsFromInputString();
             var firstElem = (IDynamicNumber)expressionBody.First();
 
             Assert.Equal(123, firstElem.Value);
@@ -45,12 +49,9 @@ namespace TestCalculator
         [Fact]
         public void TryAppendElement_Input2Plus3Mul7_FillsWithNumComNumComNum()
         {
-            IExpressionBuilder expressionBuilder = new ExpressionBuilder();
-            var expressionBody = new List<IExpressionElement>();
-            string inputString = "2+3*7";
+            inputString = "2+3*7";
 
-            foreach (var symbol in inputString)
-                expressionBuilder.TryAppendElement(expressionBody, symbol);
+            AppendElementsFromInputString();
 
             Assert.Collection(expressionBody, new Action<IExpressionElement>[]
             {
@@ -65,12 +66,9 @@ namespace TestCalculator
         [Fact]
         public void TryAppendElement_Input25Plus3dot14Mul70_Returns25Plus3dot14Mul70()
         {
-            IExpressionBuilder expressionBuilder = new ExpressionBuilder();
-            var expressionBody = new List<IExpressionElement>();
-            string inputString = "25+3,14*70";
+            inputString = "25+3,14*70";
 
-            foreach (var symbol in inputString)
-                expressionBuilder.TryAppendElement(expressionBody, symbol);
+            AppendElementsFromInputString();
 
             Assert.Collection(expressionBody, new Action<IExpressionElement>[]
             {
@@ -80,6 +78,27 @@ namespace TestCalculator
                 elem => It.IsAny<MultiplyCommand>(),
                 elem => Equals(GetDynamicValue(elem), 70)
             });
+        }
+
+        [Fact]
+        public void TryAppendElement_InputBrackets_FillsWithBrackets()
+        {
+            inputString = "()";
+
+            AppendElementsFromInputString();
+
+            Assert.Collection(expressionBody, new Action<IExpressionElement>[]
+            {
+                elem => It.IsAny<IBracket>(),
+                elem => It.IsAny<IBracket>(),
+            });
+        }
+
+        void AppendElementsFromInputString()
+        {
+            foreach (var symbol in inputString)
+                expressionBuilder
+                    .TryAppendElement(expressionBody, symbol);
         }
 
         double GetDynamicValue(IExpressionElement element)
