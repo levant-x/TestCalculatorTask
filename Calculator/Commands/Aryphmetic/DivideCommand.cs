@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Calculator.Commands.Aryphmetic
 {
-    public class SubtractCommand : BaseCommand
+    public class DivideCommand : BaseCommand
     {
-        public SubtractCommand()
-            : base(2, 1) { }
+        public DivideCommand()
+            : base(2, 2) { }
 
         protected override double Calc(double left, double right)
         {
-            return left - right;
+            throw new NotImplementedException();
         }
     }
 }
