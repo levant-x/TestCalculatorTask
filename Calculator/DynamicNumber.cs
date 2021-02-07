@@ -16,29 +16,33 @@ namespace Calculator
                 double.TryParse(valueString, out value);
                 return value;
             }
-            set => this.value = value;
+            set
+            {
+                valueString = value.ToString();
+                this.value = value;
+            }
         }
 
 
         public bool Append(char symbol)
         {
-            var result = false;
+            var status = false;
 
             if (symbol == Helper.DecimalSeparator)
                 symbol = decSeparatorToParse;
-            else if (!IsPossibleNumeric(symbol)) return result;
+            else if (!IsPossibleNumeric(symbol)) return status;
 
             var tryingToAddMoreThan1dot = symbol == decSeparatorToParse &&
                 valueString.Contains(decSeparatorToParse.ToString());
 
-            if (tryingToAddMoreThan1dot) return result;            
+            if (tryingToAddMoreThan1dot) return status;            
             else
             {
-                result = true;
+                status = true;
                 valueString += symbol;
             }
 
-            return result;
+            return status;
         }
 
         private bool IsPossibleNumeric(char symbol)

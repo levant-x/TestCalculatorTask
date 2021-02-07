@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator
 {
@@ -43,6 +41,37 @@ namespace Calculator
 
             if (map.ContainsKey(symbol)) return map[symbol];            
             else return map[numberKey];            
+        }
+
+        public static bool AreBracketsCorrect(ICollection<IExpressionElement> elements)
+        {
+            int bracketsLevel = 0;
+            foreach (var elem in elements)
+            {
+                if (!(elem is IBracket)) continue;
+                IBracket bracket = (IBracket)elem;
+
+                bracketsLevel += (int)bracket.Type;
+                if (bracketsLevel < 0) return false;
+            }
+            return bracketsLevel == 0;
+        }
+
+        public static void AdjustPrioritiesInBrackets(ICollection<IExpressionElement> elements)
+        {
+            int bracketsLevel = 0;
+            // Команды могут быть разными по всему выражению, а скобки всегда важнее
+            int maxPresentPriority = elements
+                .Where(e => e is ICommand)
+                .Select(e => ((ICommand)e).Priority)
+                .Max();
+
+            foreach (var elem in elements)
+            {
+                if (elem is ICommand)
+                    ((ICommand)elem).Priority += bracketsLevel * maxPresentPriority;
+                else if (elem is IBracket) bracketsLevel += (int)((IBracket)elem).Type;
+            }
         }
     }
 }

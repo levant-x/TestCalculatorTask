@@ -40,7 +40,7 @@ namespace Calculator
         {
             var lastElem = expression.Count == 0 ? null : expression.Last();
             var elemToAdd = CreateNewElement(elemKey);
-            var result = false;
+            var status = false;
 
             if (CanInsertElementOfType(lastElem, elemToAdd))
             {
@@ -49,15 +49,15 @@ namespace Calculator
                 // применения оператора is 
                 if (elemToAdd is IDynamicNumber)
                 {
-                    result = TryAppendNumber((IDynamicNumber)elemToAdd, elemKey);
-                    if (!result) return false;
+                    status = TryAppendNumber((IDynamicNumber)elemToAdd, elemKey);
+                    if (!status) return false;
                 }
-                result = true;
+                status = true;
                 expression.Add(elemToAdd);
             }
             else if (lastElem is IDynamicNumber)
-                result = TryAppendNumber((IDynamicNumber)lastElem, elemKey);
-            return result;
+                status = TryAppendNumber((IDynamicNumber)lastElem, elemKey);
+            return status;
         }
 
         IExpressionElement CreateNewElement(char symbol)

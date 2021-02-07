@@ -50,11 +50,31 @@ namespace TestCalculator
         [Fact]
         public void Calc_Input31Plus2Mul7_Returns45()
         {
-            inputString = "31+2*7";
+            inputString = "31+2*7"; 
             mathExpression.Parse(inputString);
-            mathExpression.Calculate(out double result);
+            mathExpression.TryCalculate(out double result);
 
             Assert.Equal(45, result);
+        }
+
+        [Fact]
+        public void Calc_Input2Plus3Mul4Sub15Div3_Returns9()
+        {
+            inputString = "2+3*4-15/3";
+            mathExpression.Parse(inputString);
+            mathExpression.TryCalculate(out double result);
+
+            Assert.Equal(9, result);
+        }
+
+        [Fact]
+        public void Calc_ObOb2Plus3ClMul8CbDiv10_Returns4()
+        {
+            inputString = "((2+3)*8)/10";
+            mathExpression.Parse(inputString);
+            mathExpression.TryCalculate(out double result);
+
+            Assert.Equal(4, result);
         }
 
         [Fact]
@@ -62,7 +82,7 @@ namespace TestCalculator
         {
             inputString = "4+3*";
             mathExpression.Parse(inputString);
-            var status = mathExpression.Calculate(out double result);
+            var status = mathExpression.TryCalculate(out double result);
 
             Assert.False(status);
         }
@@ -72,7 +92,7 @@ namespace TestCalculator
         {
             inputString = "(4+5";
             mathExpression.Parse(inputString);
-            var status = mathExpression.Calculate(out double result);
+            var status = mathExpression.TryCalculate(out double result);
 
             Assert.False(status);
         }
