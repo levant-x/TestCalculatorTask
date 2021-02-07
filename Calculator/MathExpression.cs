@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CalculatorAPI;
 
 namespace Calculator
@@ -11,13 +12,16 @@ namespace Calculator
         LinkedList<IExpressionElement> elements;
         private IExpressionBuilder expressionBuilder;
 
+
         public MathExpression(IExpressionBuilder expressionBuilder)
         {
             this.expressionBuilder = expressionBuilder;
             elements = new LinkedList<IExpressionElement>();
+
+            deferredNumbers = new Stack<IDynamicNumber>();
+            deferredCommands = new Stack<ICommand>();
         }
-
-
+        
         public bool Append(char symbol)
         {
             var result = expressionBuilder.TryAppendElement(
@@ -43,7 +47,18 @@ namespace Calculator
 
         public bool Calculate(out double result)
         {
-            throw new System.NotImplementedException();
+            result = default(double);
+
+            if (!IsExpressionComplete()) return false;
+            return true;
+        }
+
+        private bool IsExpressionComplete()
+        {
+            if (elements.Count == 0) return false;
+
+            var lastElement = elements.Last.Value;
+            return lastElement is IDynamicNumber || lastElement is IClosingBracket;
         }
     }
 }

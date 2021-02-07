@@ -52,9 +52,19 @@ namespace TestCalculator
         {
             inputString = "31+2*7";
             mathExpression.Parse(inputString);
-            double result = mathExpression.Calculate();
+            mathExpression.Calculate(out double result);
 
             Assert.Equal(45, result);
+        }
+
+        [Fact]
+        public void Calc_Input4Plus3Mul_ReturnsFalse()
+        {
+            inputString = "4+3*";
+            mathExpression.Parse(inputString);
+            var status = mathExpression.Calculate(out double result);
+
+            Assert.False(status);
         }
 
         void AppendElementsFromInputString()
