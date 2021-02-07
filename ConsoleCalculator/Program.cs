@@ -16,7 +16,6 @@ namespace ConsoleCalculator
             Register(kernel);
 
             calculator = kernel.Get<IMathExpression>();
-
             while (true) RunMainLoop();
         }
 
@@ -40,11 +39,6 @@ namespace ConsoleCalculator
             Console.WriteLine($"\n{msg}");
             Console.Write("Нажмите клавишу...");
             Console.ReadKey();
-        }
-
-        static void ApplyUserInput(ConsoleKey inputKey)
-        {
-
         }
 
         public static void Register(IKernel kernel)

@@ -44,9 +44,6 @@ namespace Calculator
 
             if (CanInsertElementOfType(lastElem, elemToAdd))
             {
-                // Разнородность элементов при их взаимном влиянии друг на друга
-                // и на состояние выражения должно быть веским аргументом для 
-                // применения оператора is 
                 if (elemToAdd is IDynamicNumber)
                 {
                     status = TryAppendNumber((IDynamicNumber)elemToAdd, elemKey);
