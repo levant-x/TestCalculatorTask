@@ -13,7 +13,8 @@ namespace Calculator.Commands.Aryphmetic
 
         protected override double Calc(double left, double right)
         {
-            throw new NotImplementedException();
+            if (right == 0) throw new DivideByZeroException("Получен нулевой делитель");
+            return left / right;
         }
     }
 }

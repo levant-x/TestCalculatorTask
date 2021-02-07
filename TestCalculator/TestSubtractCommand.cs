@@ -27,7 +27,7 @@ namespace TestCalculator
 
 
         [Fact]
-        public void Priority_MulPriorityHighterThanSumPriority_True()
+        public void Priority_SubPriorityEqualsSumPriority_True()
         {
             ICommand sumCommand = new SumCommand();
                         

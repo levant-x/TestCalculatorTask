@@ -18,11 +18,25 @@ namespace TestCalculator
 
 
         [Fact]
-        public void Exec_Input14and2_Returns7()
+        public void Exec_Input1and42_Returns0dot25()
         {
-            double result = divCommand.Exec(10, 2);
+            double result = divCommand.Exec(1, 4);
 
-            Assert.Equal(8, result);
+            Assert.Equal(0.25, result);
+        }
+
+        [Fact]
+        public void Priority_MulPriorityEqualsDivPriority_True()
+        {
+            ICommand mulCommand = new MultiplyCommand();
+
+            Assert.Equal(mulCommand.Priority, divCommand.Priority);
+        }
+
+        [Fact]
+        public void Exec_Input100and0_ThrowsDivideByZeroExc()
+        {
+            Assert.Throws<DivideByZeroException>(() => divCommand.Exec(100, 0));
         }
     }
 }
