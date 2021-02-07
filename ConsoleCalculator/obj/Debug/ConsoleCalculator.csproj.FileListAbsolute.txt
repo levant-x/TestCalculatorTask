@@ -1,0 +1,14 @@
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\ConsoleCalculator.exe.config
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\ConsoleCalculator.exe
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\ConsoleCalculator.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Calculator.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\CalculatorAPI.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\CalculatorAPI.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Calculator.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\obj\Debug\ConsoleCalculator.csprojAssemblyReference.cache
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\obj\Debug\ConsoleCalculator.csproj.CoreCompileInputs.cache
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\obj\Debug\ConsoleCalculator.csproj.CopyComplete
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\obj\Debug\ConsoleCalculator.exe
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\obj\Debug\ConsoleCalculator.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Ninject.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Ninject.xml

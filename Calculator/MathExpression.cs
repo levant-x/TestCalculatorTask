@@ -65,7 +65,7 @@ namespace Calculator
                     return false;
                 }
                 else if (elem is IDynamicNumber) DeferNumber((IDynamicNumber)elem);
-                ((List<IExpressionElement>)elements).Remove(elem);
+                elements.Remove(elem);
             }
             FinalizeCalculation();
             result = thisReslt;
