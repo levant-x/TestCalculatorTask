@@ -2,10 +2,8 @@
 
 namespace CalculatorAPI
 {
-    public interface IDynamicNumber : IExpressionElement
+    public interface IDynamicNumber : IExpressionElement, IAppendable
     {
         double Value { get; set; }
-
-        bool Append(char symbol);
     }
 }

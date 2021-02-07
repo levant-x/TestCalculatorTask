@@ -19,9 +19,20 @@ namespace Calculator
         {
             _lastElement_possibleTypesOfNext_map = new Dictionary<Type, Type[]>()
             {
-                { typeToStartExpressionWith, new Type[] { typeof(IDynamicNumber) } },
-                { typeof(ICommand), new Type[] { typeof(IDynamicNumber) } },
-                { typeof(IDynamicNumber), new Type[] { typeof(ICommand) } }
+                { typeToStartExpressionWith, new Type[] 
+                { typeof(IDynamicNumber), typeof(IOpeningBracket) } },
+
+                { typeof(ICommand), new Type[]
+                { typeof(IDynamicNumber), typeof(IOpeningBracket) } },
+
+                { typeof(IDynamicNumber), new Type[] 
+                { typeof(ICommand), typeof(IClosingBracket) } },
+
+                { typeof(IOpeningBracket), new Type[]
+                { typeof(IOpeningBracket), typeof(IDynamicNumber) } },
+
+                { typeof(IClosingBracket), new Type[]
+                { typeof(IClosingBracket), typeof(ICommand) } }
             };
         }
 

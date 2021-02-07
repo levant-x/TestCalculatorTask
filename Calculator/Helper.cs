@@ -1,4 +1,5 @@
-﻿using Calculator.Commands.Aryphmetic;
+﻿using Calculator.Brackets;
+using Calculator.Commands.Aryphmetic;
 using CalculatorAPI;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,8 @@ namespace Calculator
                 { '-', typeof(SubtractCommand) },
                 { '*', typeof(MultiplyCommand) },
                 { '/', typeof(DivideCommand) },
+                { '(', typeof(OpeningBracket) },
+                { ')', typeof(ClosingBracket) },
                 { numberKey, typeof(DynamicNumber) }
             };
         }

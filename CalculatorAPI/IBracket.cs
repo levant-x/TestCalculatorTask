@@ -5,7 +5,7 @@
         Opening = 1, Closing = -1
     }
 
-    public interface IBracket
+    public interface IBracket : IExpressionElement
     {
         BracketType Type { get; }
     }

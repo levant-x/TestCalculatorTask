@@ -83,14 +83,17 @@ namespace TestCalculator
         [Fact]
         public void TryAppendElement_InputBrackets_FillsWithBrackets()
         {
-            inputString = "()";
+            inputString = "(2+3)";
 
             AppendElementsFromInputString();
 
             Assert.Collection(expressionBody, new Action<IExpressionElement>[]
             {
-                elem => It.IsAny<IBracket>(),
-                elem => It.IsAny<IBracket>(),
+                elem => It.IsAny<IOpeningBracket>(),
+                elem => It.IsAny<IExpressionElement>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IExpressionElement>(),
+                elem => It.IsAny<IClosingBracket>(),
             });
         }
 

@@ -2,9 +2,8 @@
 
 namespace CalculatorAPI
 {
-    public interface IMathExpression
+    public interface IMathExpression: IAppendable
     {
-        bool Append(char symbol);
         ICollection<IExpressionElement> GetCollection();
     }
 }

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Brackets\ClosingBracket.cs" />
+    <Compile Include="Brackets\OpeningBracket.cs" />
     <Compile Include="Commands\Aryphmetic\DivideCommand.cs" />
     <Compile Include="Commands\Aryphmetic\SubtractCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
