@@ -34,14 +34,33 @@ namespace TestCalculator
         }
 
         [Fact]
-        public void Append_ObOb2Plus3ClMul8CbDiv10_ReturnsTrue12Times()
+        // Ob - opening bracket, Cb - closing bracket для экономии длины
+        public void Parse_ObOb2Plus3ClMul8CbDiv10_ReturnsTrue12Times()
         {
             inputString = "((2+3)*8)/10";
 
-            AppendElementsFromInputString();
+            mathExpression.Parse(inputString);
+            var elements = mathExpression.GetCollection();
 
-            expressionBuilder.Verify(m => m.TryAppendElement(It.IsAny<ICollection<IExpressionElement>>(),
-                It.IsAny<char>()), Times.Exactly(12));
+            Assert.Collection(elements, new Action<IExpressionElement>[]
+            {
+                elem => It.IsAny<IOpeningBracket>(),
+                elem => It.IsAny<IOpeningBracket>(),
+                elem => It.IsAny<IDynamicNumber>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IDynamicNumber>(),
+                elem => It.IsAny<IClosingBracket>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IClosingBracket>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IDynamicNumber>(),
+            });
+        }
+
+
+        public void Parse_7Mul4ObOb2Sub8CbMul3Cb_ReturnsTheSame()
+        {
+
         }
 
         void AppendElementsFromInputString()

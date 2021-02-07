@@ -26,5 +26,10 @@ namespace Calculator
         {
             return elements;
         }
+
+        public bool Parse(string inputString)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

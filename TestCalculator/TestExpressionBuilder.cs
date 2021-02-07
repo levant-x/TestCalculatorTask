@@ -97,7 +97,8 @@ namespace TestCalculator
             });
         }
 
-        [Fact]        
+        [Fact]    
+        // Ob - opening bracket, Cb - closing bracket для экономии длины
         public void TryAppendElement_ObOb2Plus3ClMul8CbDiv10_FillsWithSame()
         {
             inputString = "((2+3)*8)/10";
