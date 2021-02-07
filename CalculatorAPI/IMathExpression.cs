@@ -7,5 +7,7 @@ namespace CalculatorAPI
         ICollection<IExpressionElement> GetCollection();
 
         bool Parse(string inputString);
+
+        double Calculate();
     }
 }

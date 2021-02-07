@@ -11,33 +11,21 @@ namespace TestCalculator
 {
     public class TestMathExpression
     {
-        Mock<IExpressionBuilder> expressionBuilder;
+        IExpressionBuilder expressionBuilder;
         IMathExpression mathExpression;
         string inputString;
 
 
         public TestMathExpression()
         {
-            expressionBuilder = new Mock<IExpressionBuilder>();
-            mathExpression = new MathExpression(expressionBuilder.Object);
+            expressionBuilder = new ExpressionBuilder();
+            mathExpression = new MathExpression(expressionBuilder);
         }
-
-        [Fact]
-        public void Append_2Plus3_ReturnsTrue3Times()
-        {
-            inputString = "2+3";
-
-            AppendElementsFromInputString();
-
-            expressionBuilder.Verify(m => m.TryAppendElement(It.IsAny<ICollection<IExpressionElement>>(),
-                It.IsAny<char>()), Times.Exactly(3));
-        }
-
+        
         [Fact]
         // Ob - opening bracket, Cb - closing bracket для экономии длины
         public void Parse_ObOb2Plus3ClMul8CbDiv10_ReturnsTheSame()
         {
-            mathExpression = new MathExpression(new ExpressionBuilder());
             inputString = "((2+3)*8)/10";
 
             mathExpression.Parse(inputString);
@@ -57,6 +45,16 @@ namespace TestCalculator
                 elem => It.IsAny<ICommand>(),
                 elem => It.IsAny<IDynamicNumber>(),
             });
+        }
+
+        [Fact]
+        public void Calc_Input31Plus2Mul7_Returns45()
+        {
+            inputString = "31+2*7";
+            mathExpression.Parse(inputString);
+            double result = mathExpression.Calculate();
+
+            Assert.Equal(45, result);
         }
 
         void AppendElementsFromInputString()

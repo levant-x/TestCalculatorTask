@@ -37,5 +37,10 @@ namespace Calculator
                 }
             return true;
         }
+
+        public double Calculate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
