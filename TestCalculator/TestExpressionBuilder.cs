@@ -97,6 +97,29 @@ namespace TestCalculator
             });
         }
 
+        [Fact]        
+        public void TryAppendElement_ObOb2Plus3ClMul8CbDiv10_FillsWithSame()
+        {
+            inputString = "((2+3)*8)/10";
+
+            AppendElementsFromInputString();
+
+            Assert.Collection(expressionBody, new Action<IExpressionElement>[]
+            {
+                elem => It.IsAny<IOpeningBracket>(),
+                elem => It.IsAny<IOpeningBracket>(),
+                elem => It.IsAny<IDynamicNumber>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IDynamicNumber>(),
+                elem => It.IsAny<IClosingBracket>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IDynamicNumber>(),
+                elem => It.IsAny<IClosingBracket>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IDynamicNumber>(),
+            });
+        }
+
         void AppendElementsFromInputString()
         {
             foreach (var symbol in inputString)
