@@ -24,9 +24,7 @@ namespace Calculator
         
         public bool Append(char symbol)
         {
-            var result = expressionBuilder.TryAppendElement(
-                elements, symbol);
-            return result;
+            return expressionBuilder.TryAppendElement(elements, symbol);
         }
 
         public ICollection<IExpressionElement> GetCollection()
@@ -37,11 +35,11 @@ namespace Calculator
         public bool Parse(string inputString)
         {
             foreach (var symbol in inputString)
-                if (!Append(symbol))
-                {
-                    elements.Clear();
-                    return false;
-                }
+            {
+                if (Append(symbol)) continue;
+                elements.Clear();
+                return false;
+            }
             return true;
         }
 
@@ -50,6 +48,7 @@ namespace Calculator
             result = default(double);
 
             if (!IsExpressionComplete()) return false;
+            if (!AreBracketsCorrect()) return false;
             return true;
         }
 
@@ -59,6 +58,20 @@ namespace Calculator
 
             var lastElement = elements.Last.Value;
             return lastElement is IDynamicNumber || lastElement is IClosingBracket;
+        }
+
+        private bool AreBracketsCorrect()
+        {
+            int bracketsLevel = 0;
+            foreach (var elem in elements)
+            {                
+                if (!(elem is IBracket)) continue;
+
+                IBracket bracket = (IBracket)elem;
+                bracketsLevel += (int)bracket.Type;
+                if (bracketsLevel < 0) return false;
+            }
+            return bracketsLevel == 0;
         }
     }
 }

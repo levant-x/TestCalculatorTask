@@ -124,8 +124,9 @@ namespace TestCalculator
         void AppendElementsFromInputString()
         {
             foreach (var symbol in inputString)
-                expressionBuilder
-                    .TryAppendElement(expressionBody, symbol);
+            {
+                expressionBuilder.TryAppendElement(expressionBody, symbol);
+            }
         }
 
         double GetDynamicValue(IExpressionElement element)

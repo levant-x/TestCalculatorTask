@@ -58,9 +58,19 @@ namespace TestCalculator
         }
 
         [Fact]
-        public void Calc_Input4Plus3Mul_ReturnsFalse()
+        public void Calc_ExpressionEndsWithCommand_ReturnsFalse()
         {
             inputString = "4+3*";
+            mathExpression.Parse(inputString);
+            var status = mathExpression.Calculate(out double result);
+
+            Assert.False(status);
+        }
+
+        [Fact]
+        public void Calc_BracketsUnclosed_ReturnsFalse()
+        {
+            inputString = "(4+5";
             mathExpression.Parse(inputString);
             var status = mathExpression.Calculate(out double result);
 
