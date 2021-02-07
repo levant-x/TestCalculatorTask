@@ -29,7 +29,13 @@ namespace Calculator
 
         public bool Parse(string inputString)
         {
-            throw new System.NotImplementedException();
+            foreach (var symbol in inputString)
+                if (!Append(symbol))
+                {
+                    elements.Clear();
+                    return false;
+                }
+            return true;
         }
     }
 }
