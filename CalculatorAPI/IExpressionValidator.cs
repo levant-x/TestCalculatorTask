@@ -8,5 +8,7 @@ namespace CalculatorAPI
         bool CanInsertNumber(IMathExpression expression);
 
         bool CanInsertNaN(IMathExpression expression, Type elementType);
+
+        bool CanAppendNumber(IDynamicNumber number, char symbol);
     }
 }

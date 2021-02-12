@@ -5,5 +5,7 @@ namespace CalculatorAPI
     public interface IDynamicNumber : IExpressionElement, IAppendable
     {
         double Value { get; set; }
+
+        string StringValue { get; }
     }
 }
