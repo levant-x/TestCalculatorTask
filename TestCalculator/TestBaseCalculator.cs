@@ -79,25 +79,5 @@ namespace TestCalculator
 
             Assert.False(status);
         }
-
-        //[Fact]
-        //public void Calculate_ExpressionEndsWithCommand_False()
-        //{
-        //    inputString = "4+3*";
-        //    mathExpression.Parse(inputString);
-        //    var status = mathExpression.TryCalculate(out double result);
-
-        //    Assert.False(status);
-        //}
-
-        //[Fact]
-        //public void Calculate_BracketsUnclosed_ReturnsFalse()
-        //{
-        //    inputString = "(4+5";
-        //    mathExpression.Parse(inputString);
-        //    var status = mathExpression.TryCalculate(out double result);
-
-        //    Assert.False(status);
-        //}
     }
 }
