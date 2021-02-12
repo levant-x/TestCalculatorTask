@@ -28,8 +28,8 @@ namespace TestCalculator
             exprElems = new List<IExpressionElement>();
             validator = new ExpressionValidator();
             factory = new Factory();
+            expression = new MathExpression();
             expressionBuilder = new ExpressionBuilder(factory, validator);
-            expression = new MathExpression(expressionBuilder);
         }
 
 

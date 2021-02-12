@@ -22,10 +22,9 @@ namespace TestCalculator
         public TestBaseCalculator()
         {
             factory = new Factory();
+            expression = new MathExpression();
             bldValidator = new ExpressionValidator();
-
             builder = new ExpressionBuilder(factory, bldValidator);
-            expression = new MathExpression(builder);
 
             var clcValidatorMock = new Mock<ICalcValidator>();
             clcValidatorMock
@@ -33,7 +32,7 @@ namespace TestCalculator
                 .Returns(true);                
 
             calcValidator = clcValidatorMock.Object;
-            calculator = new BaseCalculator(calcValidator);
+            calculator = new BaseCalculator(factory, calcValidator);
         }
 
         [Fact]
@@ -44,55 +43,45 @@ namespace TestCalculator
             builder.TryParse(expression, inputString);
             calculator.TryCalculate(expression, out double result);
 
-            Assert.Equal(40, result);
+            Assert.Equal(4, result);
+        }
+
+        [Fact]
+        public void Calculate_Input31Plus2Mul7_45()
+        {
+            inputString = "31+2*7";
+
+            builder.TryParse(expression, inputString);
+            calculator.TryCalculate(expression, out double result);
+
+            Assert.Equal(45, result);
+        }
+
+        [Fact]
+        public void Calculate_Input2Plus3Mul4Sub15Div3_9()
+        {
+            inputString = "2+3*4-15/3";
+
+            builder.TryParse(expression, inputString);
+            calculator.TryCalculate(expression, out double result);
+
+            Assert.Equal(9, result);
+        }
+
+        [Fact]
+        public void Calculate_1DivOb3Sub3Cb_False()
+        {
+            inputString = "1/(3-3)";
+
+            builder.TryParse(expression, inputString);
+            var status = calculator.TryCalculate(expression, 
+                out double result);
+
+            Assert.False(status);
         }
 
         //[Fact]
-        //public void Calc_Input31Plus2Mul7_Returns45()
-        //{
-        //    inputString = "31+2*7"; 
-
-        //    mathExpression.Parse(inputString);
-        //    mathExpression.TryCalculate(out double result);
-
-        //    Assert.Equal(45, result);
-        //}
-
-        //[Fact]
-        //public void Calc_Input2Plus3Mul4Sub15Div3_Returns9()
-        //{
-        //    inputString = "2+3*4-15/3";
-
-        //    mathExpression.Parse(inputString);
-        //    mathExpression.TryCalculate(out double result);
-
-        //    Assert.Equal(9, result);
-        //}
-
-        //[Fact]
-        //public void Calc_ObOb2Plus3ClMul8CbDiv10_Returns4()
-        //{
-        //    inputString = "((2+3)*8)/10";
-
-        //    mathExpression.Parse(inputString);
-        //    mathExpression.TryCalculate(out double result);
-
-        //    Assert.Equal(4, result);
-        //}
-
-        //[Fact]
-        //public void Calc_1DivOb3Sub3Cb_ReturnsFalse()
-        //{
-        //    inputString = "1/(3-3)";
-
-        //    mathExpression.Parse(inputString);
-        //    var status = mathExpression.TryCalculate(out double result);
-
-        //    Assert.False(status);
-        //}
-
-        //[Fact]
-        //public void Calc_ExpressionEndsWithCommand_ReturnsFalse()
+        //public void Calculate_ExpressionEndsWithCommand_False()
         //{
         //    inputString = "4+3*";
         //    mathExpression.Parse(inputString);
@@ -102,7 +91,7 @@ namespace TestCalculator
         //}
 
         //[Fact]
-        //public void Calc_BracketsUnclosed_ReturnsFalse()
+        //public void Calculate_BracketsUnclosed_ReturnsFalse()
         //{
         //    inputString = "(4+5";
         //    mathExpression.Parse(inputString);
