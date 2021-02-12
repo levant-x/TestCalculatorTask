@@ -11,7 +11,7 @@ namespace TestCalculator
 {
     public class TestExpressionValidator
     {
-        IExpressionValidator validator;
+        IBuildValidator validator;
         Mock<IMathExpression> exprMock;
         Mock<IDynamicNumber> numberMock;
 

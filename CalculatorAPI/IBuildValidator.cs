@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CalculatorAPI
 {
-    public interface IExpressionValidator
+    public interface IBuildValidator
     {
         bool CanInsertNumber(IMathExpression expression);
 

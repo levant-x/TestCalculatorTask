@@ -43,12 +43,14 @@
   <ItemGroup>
     <Compile Include="IAppendable.cs" />
     <Compile Include="IBracket.cs" />
+    <Compile Include="ICalculator.cs" />
+    <Compile Include="ICalcValidator.cs" />
     <Compile Include="IClosingBracket.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IDynamicNumber.cs" />
     <Compile Include="IExpressionBuilder.cs" />
     <Compile Include="IExpressionElement.cs" />
-    <Compile Include="IExpressionValidator.cs" />
+    <Compile Include="IBuildValidator.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="IMathExpression.cs" />
     <Compile Include="IOpeningBracket.cs" />

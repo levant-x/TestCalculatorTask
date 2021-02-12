@@ -17,7 +17,7 @@ namespace TestCalculator
         IExpressionBuilder expressionBuilder;
         ICollection<IExpressionElement> exprElems;
         IFactory factory;
-        IExpressionValidator validator;
+        IBuildValidator validator;
         string inputString;
 
 
@@ -121,6 +121,30 @@ namespace TestCalculator
             inputString = "((2+3)*8)/10";
 
             AppendElementsToConcreteExpression();
+            exprElems = expression.GetCollection();
+
+            Assert.Collection(exprElems, new Action<IExpressionElement>[]
+            {
+                elem => It.IsAny<IOpeningBracket>(),
+                elem => It.IsAny<IOpeningBracket>(),
+                elem => It.IsAny<IDynamicNumber>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IDynamicNumber>(),
+                elem => It.IsAny<IClosingBracket>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IDynamicNumber>(),
+                elem => It.IsAny<IClosingBracket>(),
+                elem => It.IsAny<ICommand>(),
+                elem => It.IsAny<IDynamicNumber>(),
+            });
+        }
+
+        [Fact]
+        public void Parse_ObOb2Plus3ClMul8CbMin10_FillsTheSame()
+        {
+            inputString = "((2+3)*8)-10";
+
+            expressionBuilder.TryParse(expression, inputString);
             exprElems = expression.GetCollection();
 
             Assert.Collection(exprElems, new Action<IExpressionElement>[]
