@@ -49,6 +49,7 @@
     <Compile Include="IExpressionBuilder.cs" />
     <Compile Include="IExpressionElement.cs" />
     <Compile Include="IExpressionValidator.cs" />
+    <Compile Include="IFactory.cs" />
     <Compile Include="IMathExpression.cs" />
     <Compile Include="IOpeningBracket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

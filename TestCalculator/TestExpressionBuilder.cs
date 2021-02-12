@@ -12,14 +12,16 @@ namespace TestCalculator
 {
     public class TestExpressionBuilder
     {
+        Mock<IMathExpression> exprMock;
         IExpressionBuilder expressionBuilder;
         ICollection<IExpressionElement> expressionBody;
         string inputString;
 
         public TestExpressionBuilder()
         {
-            expressionBuilder = new ExpressionBuilder();
+            exprMock = new Mock<IMathExpression>();
             expressionBody = new List<IExpressionElement>();
+            expressionBuilder = new ExpressionBuilder();
         }
 
         [Fact]
