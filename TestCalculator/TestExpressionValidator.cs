@@ -1,4 +1,5 @@
 ﻿using Calculator;
+using Calculator.Commands.Aryphmetic;
 using CalculatorAPI;
 using Moq;
 using System;
@@ -50,6 +51,31 @@ namespace TestCalculator
                 { new Mock<ICommand>().Object });
 
             bool result = validator.CanInsertNumber(exprMock.Object);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void CanInsertNaN_ExprEmptyAndMul_False()
+        {
+            exprMock.Setup(m => m.GetCollection())
+                .Returns(new List<IExpressionElement>());
+            var type = typeof(MultiplyCommand);
+
+            bool result = validator.CanInsertNaN(exprMock.Object, type);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void CanInsertNaN_ExprNumAndCb_True()
+        {
+            exprMock.Setup(m => m.GetCollection())
+                .Returns(new List<IExpressionElement>()
+                { new Mock<IDynamicNumber>().Object });
+            var type = typeof(IClosingBracket);
+
+            bool result = validator.CanInsertNaN(exprMock.Object, type);
 
             Assert.True(result);
         }
