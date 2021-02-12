@@ -8,6 +8,6 @@ namespace CalculatorAPI
 {
     public interface IAppendable
     {
-        bool Append(char symbol);
+        void Append(char symbol);
     }
 }

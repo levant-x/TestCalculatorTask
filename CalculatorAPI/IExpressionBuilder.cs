@@ -4,6 +4,6 @@ namespace CalculatorAPI
 {
     public interface IExpressionBuilder
     {
-        bool TryAppendElement(ICollection<IExpressionElement> expression, char elemKey);
+        bool TryAppendElement(IMathExpression expression, char symbol);
     }
 }

@@ -13,66 +13,81 @@ namespace TestCalculator
     public class TestExpressionBuilder
     {
         Mock<IMathExpression> exprMock;
+        IMathExpression expression;
         IExpressionBuilder expressionBuilder;
-        ICollection<IExpressionElement> expressionBody;
+        ICollection<IExpressionElement> exprElems;
+        IFactory factory;
+        IExpressionValidator validator;
         string inputString;
+
+
 
         public TestExpressionBuilder()
         {
             exprMock = new Mock<IMathExpression>();
-            expressionBody = new List<IExpressionElement>();
-            expressionBuilder = new ExpressionBuilder();
+            exprElems = new List<IExpressionElement>();
+            validator = new ExpressionValidator();
+            factory = new Factory();
+            expressionBuilder = new ExpressionBuilder(factory, validator);
+            expression = new MathExpression(expressionBuilder);
         }
 
+
+
         [Fact]
-        public void TryAppendElement_Input123_FillsWithNum()
+        public void TryAppendElement_ExprEmptyInput5_True()
         {
-            inputString = "123";
+            SetupExprMock();
 
-            AppendElementsFromInputString();
+            var result = ExecuteBuilderWith('5');
 
-            Assert.Collection(expressionBody, new Action<IExpressionElement>[]
-            {
-                elem => It.IsAny<IDynamicNumber>()
-            });
+            Assert.True(result);
         }
 
         [Fact]
-        public void TryAppendElement_Input123_FillsWith123()
+        public void TryAppendElement_Expr12Input3_True()
         {
-            inputString = "123";
+            exprElems.Add(GetMockedNumber("12"));
+            SetupExprMock();
+                        
+            var result = ExecuteBuilderWith('3');
 
-            AppendElementsFromInputString();
-            var firstElem = (IDynamicNumber)expressionBody.First();
-
-            Assert.Equal(123, firstElem.Value);
+            Assert.True(result);
         }
 
         [Fact]
-        public void TryAppendElement_Input2Plus3Mul7_FillsWithNumComNumComNum()
+        public void TryAppendElement_ExprEmptyInputMin_True()
         {
-            inputString = "2+3*7";
+            SetupExprMock();
 
-            AppendElementsFromInputString();
+            var result = ExecuteBuilderWith('-');
 
-            Assert.Collection(expressionBody, new Action<IExpressionElement>[]
-            {
-                elem => It.IsAny<IDynamicNumber>(),
-                elem => It.IsAny<ICommand>(),
-                elem => It.IsAny<IDynamicNumber>(),
-                elem => It.IsAny<ICommand>(),
-                elem => It.IsAny<IDynamicNumber>()
-            });
+            Assert.True(result);
         }
 
         [Fact]
-        public void TryAppendElement_Input25Plus3dot14Mul70_Returns25Plus3dot14Mul70()
+        public void TryAppendElement_Expr2Cmd3CmdInput7_True()
+        {
+            exprElems.Add(GetMockedNumber("2"));
+            exprElems.Add(GetMockedCommand());
+            exprElems.Add(GetMockedNumber("3"));
+            exprElems.Add(GetMockedCommand());
+            SetupExprMock();
+
+            var result = ExecuteBuilderWith('7');
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void TryAppendElement_In25Plus3dot14Mul70_FillsTheSame()
         {
             inputString = "25+3,14*70";
 
-            AppendElementsFromInputString();
+            AppendElementsToConcreteExpression();
+            exprElems = expression.GetCollection();
 
-            Assert.Collection(expressionBody, new Action<IExpressionElement>[]
+            Assert.Collection(exprElems, new Action<IExpressionElement>[]
             {
                 elem => Equals(GetDynamicValue(elem), 25),
                 elem => It.IsAny<SumCommand>(),
@@ -83,13 +98,14 @@ namespace TestCalculator
         }
 
         [Fact]
-        public void TryAppendElement_InputBrackets_FillsWithBrackets()
+        public void TryAppendElement_InOb2Plus3Cb_FillsTheSame()
         {
             inputString = "(2+3)";
 
-            AppendElementsFromInputString();
+            AppendElementsToConcreteExpression();
+            exprElems = expression.GetCollection();
 
-            Assert.Collection(expressionBody, new Action<IExpressionElement>[]
+            Assert.Collection(exprElems, new Action<IExpressionElement>[]
             {
                 elem => It.IsAny<IOpeningBracket>(),
                 elem => It.IsAny<IExpressionElement>(),
@@ -99,15 +115,15 @@ namespace TestCalculator
             });
         }
 
-        [Fact]    
-        // Ob - opening bracket, Cb - closing bracket для экономии длины
-        public void TryAppendElement_ObOb2Plus3ClMul8CbDiv10_FillsWithSame()
+        [Fact]   
+        public void TryAppendElement_ObOb2Plus3ClMul8CbDiv10_FillsTheSame()
         {
             inputString = "((2+3)*8)/10";
 
-            AppendElementsFromInputString();
+            AppendElementsToConcreteExpression();
+            exprElems = expression.GetCollection();
 
-            Assert.Collection(expressionBody, new Action<IExpressionElement>[]
+            Assert.Collection(exprElems, new Action<IExpressionElement>[]
             {
                 elem => It.IsAny<IOpeningBracket>(),
                 elem => It.IsAny<IOpeningBracket>(),
@@ -123,12 +139,35 @@ namespace TestCalculator
             });
         }
 
-        void AppendElementsFromInputString()
+        void AppendElementsToConcreteExpression()
         {
             foreach (var symbol in inputString)
-            {
-                expressionBuilder.TryAppendElement(expressionBody, symbol);
-            }
+                expressionBuilder.TryAppendElement(expression,
+                    symbol);
+        }
+
+        void SetupExprMock()
+        {
+            exprMock.Setup(m => m.GetCollection())
+                .Returns(exprElems);
+        }
+
+        IDynamicNumber GetMockedNumber(string value)
+        {
+            var numberMock = new Mock<IDynamicNumber>();
+            numberMock.Setup(m => m.StringValue).Returns(value);
+            return numberMock.Object;
+        }
+
+        ICommand GetMockedCommand()
+        {
+            return new Mock<ICommand>().Object;
+        }
+
+        bool ExecuteBuilderWith(char value)
+        {
+            return expressionBuilder.TryAppendElement(
+                exprMock.Object, value);
         }
 
         double GetDynamicValue(IExpressionElement element)

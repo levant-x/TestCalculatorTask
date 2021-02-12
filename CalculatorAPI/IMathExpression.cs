@@ -2,12 +2,10 @@
 
 namespace CalculatorAPI
 {
-    public interface IMathExpression: IAppendable
+    public interface IMathExpression
     {
         ICollection<IExpressionElement> GetCollection();
-
-        bool Parse(string inputString);
-
+        
         bool TryCalculate(out double result);
     }
 }

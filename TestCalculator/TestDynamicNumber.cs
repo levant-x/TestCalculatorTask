@@ -17,7 +17,7 @@ namespace TestCalculator
 
 
         [Fact]
-        public void Append_Input123_Returns123()
+        public void Append_Input123_123()
         {
             var inputString = "123";
 
@@ -27,23 +27,23 @@ namespace TestCalculator
         }     
         
         [Fact]
-        public void Append_Input2dot7dot1_Returns2dot71()
+        public void Append_Input2dot7dot1_0()
         {
             var inputString = "2,7,1";
 
             AppendCharsToDynamicNumber(inputString);
 
-            Assert.Equal(2.71, number.Value);
+            Assert.Equal(0, number.Value);
         }
 
         [Fact]
         public void Append_Input003dot14_Returns3dot14()
         {
-            var inputString = "3,14";
+            var inputString = "-3,14";
 
             AppendCharsToDynamicNumber(inputString);
 
-            Assert.Equal(3.14, number.Value);
+            Assert.Equal(-3.14, number.Value);
         }
 
 
