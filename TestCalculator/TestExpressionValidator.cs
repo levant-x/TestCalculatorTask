@@ -58,6 +58,21 @@ namespace TestCalculator
         }
 
         [Fact]
+        public void CanInsertNumber_NumCmd_True()
+        {
+            exprMock.Setup(m => m.GetCollection())
+                .Returns(new List<IExpressionElement>()
+                {
+                    new Mock<IDynamicNumber>().Object,
+                    new Mock<ICommand>().Object,
+                });
+
+            bool result = validator.CanInsertNumber(exprMock.Object);
+
+            Assert.True(result);
+        }
+
+        [Fact]
         public void CanInsertNaN_ExprEmptyInMul_False()
         {
             exprMock.Setup(m => m.GetCollection())
@@ -92,6 +107,18 @@ namespace TestCalculator
             bool result = validator.CanAppendNumber(numberMock.Object, symbol);
 
             Assert.True(result);
+        }
+
+        [Fact]
+        public void CanAppendNumber_4MulInMin_False()
+        {
+            numberMock.Setup(m => m.StringValue)
+                .Returns("4*");
+            var symbol = '-';
+
+            bool result = validator.CanAppendNumber(numberMock.Object, symbol);
+
+            Assert.False(result);
         }
 
         [Fact]

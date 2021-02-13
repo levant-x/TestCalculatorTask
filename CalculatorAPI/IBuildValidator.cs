@@ -10,5 +10,7 @@ namespace CalculatorAPI
         bool CanInsertNaN(IMathExpression expression, Type elementType);
 
         bool CanAppendNumber(IDynamicNumber number, char symbol);
+
+        char Minus { get; }
     }
 }

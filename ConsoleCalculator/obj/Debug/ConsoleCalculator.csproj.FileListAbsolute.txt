@@ -12,3 +12,9 @@ D:\Документы\Служебные документы\РБИУ\Работ�
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\obj\Debug\ConsoleCalculator.pdb
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Ninject.dll
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Ninject.xml
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Castle.Core.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Ninject.Extensions.Factory.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Calculator.dll.config
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Ninject.Extensions.Factory.xml
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Ninject.Extensions.Conventions.dll
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\ConsoleCalculator\bin\Debug\Ninject.Extensions.Conventions.xml

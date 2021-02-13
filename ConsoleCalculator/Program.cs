@@ -2,34 +2,53 @@
 using Calculator;
 using CalculatorAPI;
 using Ninject;
+using Ninject.Extensions.Conventions;
+using Ninject.Extensions.Factory;
 
 namespace ConsoleCalculator
 {
     class Program
     {
-        static IMathExpression calculator;
-        static double result;
+        static ICalculator calculator;
+        static IMathExpression expression;
+        static IExpressionBuilder expressionBuilder;
 
         static void Main(string[] args)
         {
             var kernel = new StandardKernel();
             Register(kernel);
 
-            calculator = kernel.Get<IMathExpression>();
+            calculator = kernel.Get<ICalculator>();
+            expression = kernel.Get<IMathExpression>();
+            expressionBuilder = kernel.Get<IExpressionBuilder>();
             while (true) RunMainLoop();
         }
 
         static void RunMainLoop()
         {
             Console.Clear();
-            Console.WriteLine("Введите выражение. " +
-                "Нажмите Enter чтобы вычислить\n");
+            Console.WriteLine("Введите выражение. Нажмите Enter чтобы вычислить\n");
+            
+            expression.Clear();
+            if (!GetParseUserInput()) return;
+            TryCalculateUserInput();            
+        }
 
-            var expression = Console.ReadLine();
-            calculator.Parse(expression);
+        static bool GetParseUserInput()
+        {
+            var inputString = Console.ReadLine();
+            if (!expressionBuilder.TryParse(expression, inputString))
+            {
+                ShowResultPending("Выражение некорректно");
+                return false;
+            }
+            return true;
+        }
 
-            var msg = calculator.TryCalculate(out result) ?
-                $"Результат = {result}" :
+        static void TryCalculateUserInput()
+        {
+            var msg = calculator.TryCalculate(expression, 
+                out double result) ? $"Результат = {result}" :
                 "Выражение некорректно либо привело к ошибке";
             ShowResultPending(msg);
         }
@@ -41,10 +60,15 @@ namespace ConsoleCalculator
             Console.ReadKey();
         }
 
-        public static void Register(IKernel kernel)
+        static void Register(IKernel kernel)
         {
-            kernel.Bind<IMathExpression>().To<MathExpression>();
+            kernel.Bind<IFactory>().To<Factory>();
+            kernel.Bind<ICalculator>().To<SimpleCalculator>();
             kernel.Bind<IExpressionBuilder>().To<ExpressionBuilder>();
+            kernel.Bind<IBuildValidator>().To<ExpressionValidator>();
+            kernel.Bind<ICalcValidator>().To<ExpressionValidator>();
+            kernel.Bind<IMathExpression>().To<MathExpression>()
+                .InSingletonScope();
         }
     }
 }

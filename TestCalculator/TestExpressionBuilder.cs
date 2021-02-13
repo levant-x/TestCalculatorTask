@@ -140,7 +140,7 @@ namespace TestCalculator
         }
 
         [Fact]
-        public void Parse_ObOb2Plus3ClMul8CbMin10_FillsTheSame()
+        public void TryParse_ObOb2Plus3ClMul8CbMin10_FillsTheSame()
         {
             inputString = "((2+3)*8)-10";
 
@@ -161,6 +161,16 @@ namespace TestCalculator
                 elem => It.IsAny<ICommand>(),
                 elem => It.IsAny<IDynamicNumber>(),
             });
+        }
+
+        [Fact]
+        public void TryParse_2PlusMin_False()
+        {
+            inputString = "2+-";
+
+            var result = expressionBuilder.TryParse(expression, inputString);
+
+            Assert.False(result);
         }
 
         void AppendElementsToConcreteExpression()

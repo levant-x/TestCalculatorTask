@@ -17,3 +17,4 @@ D:\Документы\Служебные документы\РБИУ\Работ�
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\TestCalculator\obj\Debug\netcoreapp2.1\TestCalculator.csproj.CopyComplete
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\TestCalculator\obj\Debug\netcoreapp2.1\TestCalculator.dll
 D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\TestCalculator\obj\Debug\netcoreapp2.1\TestCalculator.pdb
+D:\Документы\Служебные документы\РБИУ\Работа программиста\TestCalculatorTask\TestCalculator\bin\Debug\netcoreapp2.1\Calculator.dll.config
