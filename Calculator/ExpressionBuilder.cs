@@ -10,81 +10,84 @@ namespace Calculator
 {
     public class ExpressionBuilder : IExpressionBuilder
     {
-        // сопоставляет, элемент каких типов можно добавить в выражение следующим
-        private static Dictionary<Type, Type[]> lastElement_possibleTypesOfNext_map;
-        static readonly Type typeToStartExpressionWith = typeof(char);
+        private IFactory factory;
+        private IBuildValidator validator;
+
+        IMathExpression expression;
+        ICollection<IExpressionElement> elements;
+        char symbol;
 
 
-        static ExpressionBuilder()
+
+        public ExpressionBuilder(IFactory factory, IBuildValidator validator)
         {
-            lastElement_possibleTypesOfNext_map = new Dictionary<Type, Type[]>()
-            {
-                { typeToStartExpressionWith, new Type[] 
-                { typeof(IDynamicNumber), typeof(IOpeningBracket) } },
-
-                { typeof(ICommand), new Type[]
-                { typeof(IDynamicNumber), typeof(IOpeningBracket) } },
-
-                { typeof(IDynamicNumber), new Type[] 
-                { typeof(ICommand), typeof(IClosingBracket) } },
-
-                { typeof(IOpeningBracket), new Type[]
-                { typeof(IOpeningBracket), typeof(IDynamicNumber) } },
-
-                { typeof(IClosingBracket), new Type[]
-                { typeof(IClosingBracket), typeof(ICommand) } }
-            };
+            this.factory = factory;
+            this.validator = validator;
         }
 
-        public bool TryAppendElement(ICollection<IExpressionElement> expression, char elemKey)
-        {
-            var lastElem = expression.Count == 0 ? null : expression.Last();
-            var elemToAdd = CreateNewElement(elemKey);
-            var status = false;
 
-            if (CanInsertElementOfType(lastElem, elemToAdd))
-            {
-                if (elemToAdd is IDynamicNumber)
-                {
-                    status = TryAppendNumber((IDynamicNumber)elemToAdd, elemKey);
-                    if (!status) return false;
-                }
-                status = true;
-                expression.Add(elemToAdd);
-            }
-            else if (lastElem is IDynamicNumber)
-                status = TryAppendNumber((IDynamicNumber)lastElem, elemKey);
-            return status;
+        
+        public bool TryAppendElement(IMathExpression expression, char symbol)
+        {
+            this.expression = expression;
+            this.symbol = symbol;
+            elements = expression.GetCollection();
+            return InsertedNaN() || InsertedNumber() || AppendedNumber();
         }
 
-        IExpressionElement CreateNewElement(char symbol)
+        public bool TryParse(IMathExpression expression, string inputString)
         {
-            var elementType = Helper.ResolveElement(symbol);
-            return (IExpressionElement)Activator.CreateInstance(elementType);
+            foreach (var symbol in inputString)
+                if (!TryAppendElement(expression, symbol))
+                    return false;
+            return true;
         }
 
-        bool TryAppendNumber(IDynamicNumber number, char symbol)
+                
+        
+        bool InsertedNaN()
         {
-            return number.Append(symbol);
+            var newElemType = factory.ResolveType(symbol);
+            if (newElemType == null ||
+                !validator.CanInsertNaN(expression, newElemType))
+                return false;
+
+            var newElem = factory.CreateNaN(symbol);
+            elements.Add(newElem);
+            return true;
         }
 
-        bool CanInsertElementOfType(IExpressionElement lastElem, IExpressionElement elemToAdd)
+        bool InsertedNumber()
         {
-            var map = lastElement_possibleTypesOfNext_map;
+            if (!validator.CanInsertNumber(expression))
+                return false;
+                            
+            if (!(elements.Count == 0 ||
+                elements.Last() is IOpeningBracket) &&
+                symbol == validator.Minus)
+                return false;
+            
+            var newNumber = factory.CreateNumber();
+            if (!validator.CanAppendNumber(newNumber, symbol))
+                return false;
 
-            // интерфейс, реализуемый элементом и имеющийся в настройках
-            var keyType = lastElem == null ? typeToStartExpressionWith :
-                lastElem.GetType()
-                .GetInterfaces()
-                .First(i => map.ContainsKey(i)); 
-            var possibleTypes = map[keyType];
+            newNumber.Append(symbol);
+            elements.Add(newNumber);
+            return true;
+        }
 
-            // имеется ли в настройках интерфейс, реализуемый элементом
-            var result = possibleTypes
-                .Any(t => elemToAdd.GetType()
-                .GetInterfaces()
-                .Contains(t)); 
-            return result;
+        bool AppendedNumber()
+        {
+            if (elements.Count == 0 ||
+                !(elements.Last() is IDynamicNumber))
+                return false;
+
+            var lastNumber = (IDynamicNumber)elements.Last();
+            if (!validator.CanAppendNumber(lastNumber, symbol))
+                return false;
+
+            lastNumber.Append(symbol);
+            return true;
         }
     }
 }

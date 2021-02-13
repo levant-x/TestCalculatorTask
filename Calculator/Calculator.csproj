@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SimpleCalculator.cs" />
     <Compile Include="Brackets\ClosingBracket.cs" />
     <Compile Include="Brackets\OpeningBracket.cs" />
     <Compile Include="Commands\Aryphmetic\DivideCommand.cs" />
@@ -49,7 +51,8 @@
     <Compile Include="DynamicNumber.cs" />
     <Compile Include="Commands\Aryphmetic\MultiplyCommand.cs" />
     <Compile Include="ExpressionBuilder.cs" />
-    <Compile Include="Helper.cs" />
+    <Compile Include="ExpressionValidator.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="MathExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands\Aryphmetic\SumCommand.cs" />
@@ -59,6 +62,9 @@
       <Project>{64ab840e-6a04-47b1-adad-11e5a301c2ac}</Project>
       <Name>CalculatorAPI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
